@@ -2,17 +2,18 @@
     "use strict";
 
     angular.module('public')
-        .service('SignupService', SignupService);
+        .service('UserService', UserService);
 
 
-    SignupService.$inject = [];
-    function SignupService($http, ApiPath) {
+    UserService.$inject = [];
+    function UserService($http, ApiPath) {
         var service = this;
 
         service.getRegistration = function () {
-            return $http.get(ApiPath + '/categories.json').then(function (response) {
+            return $http.get(ApiPath + '/users.json').then(function (response) {
                 return response.data;
             });
+
         };
 
     }

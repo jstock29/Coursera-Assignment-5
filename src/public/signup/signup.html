@@ -28,15 +28,14 @@
             <br>
             <input type="text" name="fav" placeholder="Input as a menu number"
                    ng-model="$ctrl.user.fav"
-                   required>
-            <span ng-if="signupForm.fav.$invalid && signupForm.fav.$touched">
-            No such menu number exists
+                   >
+            <span ng-if="$ctrl.exists===false">
+            No such menu number exists.
           </span>
-
             <br>
-
+            <!--ng-disabled="signupForm.$invalid"-->
             <button
-                    ng-disabled="signupForm.$invalid"
+
                     ng-click="$ctrl.submit()">Submit</button>
 
             <div style="margin-top: 10px;">
