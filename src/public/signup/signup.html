@@ -1,0 +1,55 @@
+<div class="container">
+    <h2 id="" class="text-center">Sign Up</h2>
+    <fieldset>
+        <form name='signupForm' novalidate style="color: black">
+
+            <input type="text" name="first" placeholder="First"
+                   ng-model="$ctrl.user.first"
+                   required>
+            <br>
+            <input type="text" name="last" placeholder="Last"
+                   ng-model="$ctrl.user.last"
+                   required>
+            <br>
+            <input type="email" name="email" placeholder="Email"
+                   ng-model="$ctrl.user.email"
+                   required>
+            <span ng-if="signupForm.email.$invalid && signupForm.email.$touched">
+            Must be a valid email address: handle@domain format
+          </span>
+            <br>
+
+            <input type="text" name="phone" placeholder="Phone ###-###-####"
+                   ng-model="$ctrl.user.phone"
+                   pattern="(\d{3})-(\d{3})-(\d{4})">
+            <span ng-if="signupForm.phone.$invalid && signupForm.phone.$touched">
+            Phone must be in the format ###-###-####.
+          </span>
+            <br>
+            <input type="text" name="fav" placeholder="Input as a menu number"
+                   ng-model="$ctrl.user.fav"
+                   required>
+            <span ng-if="signupForm.fav.$invalid && signupForm.fav.$touched">
+            No such menu number exists
+          </span>
+
+            <br>
+
+            <button
+                    ng-disabled="signupForm.$invalid"
+                    ng-click="$ctrl.submit()">Submit</button>
+
+            <div style="margin-top: 10px;">
+                Form valid? {{ signupForm.$valid }}
+            </div>
+        </form>
+    </fieldset>
+
+    <div id="info" ng-if="$ctrl.completed">
+        First: {{ $ctrl.user.first}} <br>
+        First: {{ $ctrl.user.last}} <br>
+        Email: {{ $ctrl.user.email}} <br>
+        Phone: {{ $ctrl.user.phone }} <br>
+        Favorite Dish: {{ $ctrl.user.fav}}
+    </div>
+</div>
