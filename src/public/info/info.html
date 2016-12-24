@@ -1,11 +1,14 @@
 <div class="container">
     <h2 id="" class="text-center">Info</h2>
     <p>Not registered yet! <a ui-sref="public.signup">Sign up now!</a></p>
-    <div id="info" ng-if="$ctrl.completed">
-        First: {{ $ctrl.user.first}} <br>
-        First: {{ $ctrl.user.last}} <br>
-        Email: {{ $ctrl.user.email}} <br>
-        Phone: {{ $ctrl.user.phone }} <br>
-        Favorite Dish: {{ $ctrl.user.fav}}
+    <div id="info">
+        First: {{ infoCtrl.user.first}} <br>
+        First: {{ infoCtrl.user.last}} <br>
+        Email: {{ infoCtrl.user.email}} <br>
+        Phone: {{ infoCtrl.user.phone }} <br>
+        Favorite Dish: {{ infoCtrl.user.fav}}<br>
+        Name:{{infoCtrl.dish.name}} <br>
+        Description:{{infoCtrl.dish.description}} <br>
+        <!-- Picture:{{infoCtrl.dish.image}} <br> -->
     </div>
 </div>

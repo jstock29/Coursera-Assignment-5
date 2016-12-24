@@ -4,32 +4,34 @@
     angular.module('public')
         .controller('SignupController', SignupController);
 
-    SignupController.$inject = ['signup', '$http'];
-    function SignupController(signup,$http) {
+    SignupController.$inject = ['$http'];
+    function SignupController($http) {
         var $ctrl = this;
 
-
         $ctrl.user = {
-            first: '',
-            last: '',
-            email: '',
-            phone: '',
-            fav: ''
+            first: 'Jared',
+            last: 'Stock',
+            email: 'jstock529@gmail.com',
+            phone: '303-995-1049',
+            fav: 'L1'
         };
-        $ctrl.signup = signup;
-        $ctrl.exists=true;
-        $ctrl.submit = function () {
-            console.log('Submitted!');
-            var response = $http.get('https://jstock29-restaurant-server.herokuapp.com/menu_items/'+$ctrl.fav+'.json');
-            console.log(response);
-            if (Object.values(obj).indexOf($ctrl.fav) > -1) {
-                console.log('exists');
-                $ctrl.exists=true;
-            }else{
-                $ctrl.exists=false;
-            }
+        $ctrl.error='';
+        $ctrl.message='';
 
-            $ctrl.completed = true
+        $ctrl.submit = function () {
+            var response = $http.get('https://jstock29-restaurant-server.herokuapp.com/menu_items/'+$ctrl.user.fav+'.json');
+            response.success(function(data, status, headers, config) {
+                console.log(response.$$state.value.data);
+                console.log(response.$$state.value.data.short_name);
+                $ctrl.message='Your information has been saved!'
+                $ctrl.error='';
+            });
+            response.error(function(data, status, headers, config) {
+                console.log('error');
+                $ctrl.error='No such menu number exists.'
+                $ctrl.message=''
+
+            });
 
         }
     }

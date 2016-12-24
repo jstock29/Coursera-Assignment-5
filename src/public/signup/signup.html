@@ -1,18 +1,24 @@
 <div class="container">
-    <h2 id="" class="text-center">Sign Up</h2>
+    <h2 id="Signup_page" class="text-center">Sign Up</h2>
     <fieldset>
         <form name='signupForm' novalidate style="color: black">
 
             <input type="text" name="first" placeholder="First"
-                   ng-model="$ctrl.user.first"
+                   ng-model="signupCtrl.user.first"
                    required>
+               <span ng-if="signupForm.first.$invalid && signupForm.first.$touched">
+               Enter your first name.
+             </span>
             <br>
             <input type="text" name="last" placeholder="Last"
-                   ng-model="$ctrl.user.last"
+                   ng-model="signupCtrl.user.last"
                    required>
+             <span ng-if="signupForm.last.$invalid && signupForm.last.$touched">
+             Enter your last name.
+           </span>
             <br>
             <input type="email" name="email" placeholder="Email"
-                   ng-model="$ctrl.user.email"
+                   ng-model="signupCtrl.user.email"
                    required>
             <span ng-if="signupForm.email.$invalid && signupForm.email.$touched">
             Must be a valid email address: handle@domain format
@@ -20,35 +26,23 @@
             <br>
 
             <input type="text" name="phone" placeholder="Phone ###-###-####"
-                   ng-model="$ctrl.user.phone"
+                   ng-model="signupCtrl.user.phone"
                    pattern="(\d{3})-(\d{3})-(\d{4})">
             <span ng-if="signupForm.phone.$invalid && signupForm.phone.$touched">
             Phone must be in the format ###-###-####.
           </span>
             <br>
             <input type="text" name="fav" placeholder="Input as a menu number"
-                   ng-model="$ctrl.user.fav"
-                   >
-            <span ng-if="$ctrl.exists===false">
-            No such menu number exists.
-          </span>
+                   ng-model="signupCtrl.user.fav">
+            <span >{{signupCtrl.error}}</span>
             <br>
-            <!--ng-disabled="signupForm.$invalid"-->
-            <button
-
-                    ng-click="$ctrl.submit()">Submit</button>
+            <button ng-disabled="signupForm.$invalid"
+                    ng-click="signupCtrl.submit()">Submit</button>
 
             <div style="margin-top: 10px;">
                 Form valid? {{ signupForm.$valid }}
             </div>
         </form>
     </fieldset>
-
-    <div id="info" ng-if="$ctrl.completed">
-        First: {{ $ctrl.user.first}} <br>
-        First: {{ $ctrl.user.last}} <br>
-        Email: {{ $ctrl.user.email}} <br>
-        Phone: {{ $ctrl.user.phone }} <br>
-        Favorite Dish: {{ $ctrl.user.fav}}
-    </div>
+    <span >{{signupCtrl.message}}</span>
 </div>
