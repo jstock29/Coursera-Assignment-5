@@ -31,7 +31,7 @@ function routeConfig ($stateProvider) {
         controller: 'InfoController',
         controllerAs: 'infoCtrl',
         resolve: {
-          user: ['UserService', function ($stateParams, UserService) {
+          user: ['$stateParams','UserService', function ($stateParams, UserService) {
             return UserService.getUser($stateParams.user);
           }],
           dish:['$stateParams','UserService', function ($stateParams, UserService) {

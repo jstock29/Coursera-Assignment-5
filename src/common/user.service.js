@@ -6,12 +6,12 @@ angular.module('common')
 
 UserService.$inject = ['$http', 'ApiPath'];
 function UserService($http, ApiPath) {
-    var service = this;
+  var service = this;
 
-    service.getUser=function (user) {
-      console.log(user);
-      return user;
-    };
+  service.getUser=function (user) {
+    console.log(user);
+    return user;
+  };
 
   service.getProfile = function (short_name) {
     if (short_name) {
