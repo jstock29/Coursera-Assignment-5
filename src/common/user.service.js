@@ -4,23 +4,26 @@
 angular.module('common')
   .service('UserService', UserService);
 
-UserService.$inject = ['$http', 'ApiPath'];
-function UserService($http, ApiPath) {
-  var service = this;
+UserService.$inject = ['$window'];
+function UserService($window) {
+  var service=this;
+  var profile={};
 
-  service.getUser=function (user) {
-    console.log(user);
-    return user;
+   service.store = function(value) {
+  $window.userService = value;
+  profile=$window.userService
+  console.log(profile);
   };
 
-  service.getProfile = function (short_name) {
-    if (short_name) {
-      config.params = {'short_name': short_name};
+  service.get = function() {
+    console.log(profile);
+    if(profile){
+      return profile;
+    }else{
+      return;
     }
-    return $http.get(ApiPath+'/menu_items/'+short_name+'.json').then(function (response) {
-      console.log(response.$$state.value.data);
-      return response.$$state.value.data;
-    });
   };
-}
+
+
+ }
 })();

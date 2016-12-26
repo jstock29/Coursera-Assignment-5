@@ -3,13 +3,20 @@
 
 angular.module('public')
 .controller('InfoController', InfoController);
+InfoController.$inject = ['UserService','MenuService', 'ApiPath'];
 
-InfoController.$inject = ['dish','user'];
-function InfoController(dish,user) {
-  var $ctrl = this;
-  $ctrl.user=user;
-  $ctrl.dish=dish;
-  console.log($ctrl.user);
-  console.log($ctrl.dish);
+function InfoController(UserService,MenuService, ApiPath) {
+  var infoCtrl = this;
+
+  infoCtrl.basePath = ApiPath;
+  infoCtrl.user = UserService.get();
+  infoCtrl.notSignedUp = angular.equals({}, infoCtrl.user);
+
+  if (infoCtrl.user) {
+    MenuService.getMenuItemsByShortName(infoCtrl.user.fav).then(function (response) {
+      infoCtrl.dish=response;
+      console.log(response);
+    })
+  }
 }
 })();

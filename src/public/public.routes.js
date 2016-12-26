@@ -23,21 +23,23 @@ function routeConfig ($stateProvider) {
         url: '/signup',
         templateUrl: 'src/public/signup/signup.html',
         controller: 'SignupController',
-        controllerAs: 'signupCtrl'
+        controllerAs: 'signupCtrl',
+        resolve: {
+          menuNumbers: ['$stateParams','MenuService', function ($stateParams, MenuService) {
+            return MenuService.getMenuItems()
+              .then(function(response) {
+                return response.menu_items.map(function(item) {
+                  return item.short_name;
+                });
+            });
+          }]
+        }
     })
     .state('public.info', {
         url: '/info',
         templateUrl: 'src/public/info/info.html',
         controller: 'InfoController',
-        controllerAs: 'infoCtrl',
-        resolve: {
-          user: ['$stateParams','UserService', function ($stateParams, UserService) {
-            return UserService.getUser($stateParams.user);
-          }],
-          dish:['$stateParams','UserService', function ($stateParams, UserService) {
-            return UserService.getProfile($stateParams.short_name);
-          }]
-        }
+        controllerAs: 'infoCtrl'
     })
     .state('public.menu', {
       url: '/menu',
@@ -60,6 +62,6 @@ function routeConfig ($stateProvider) {
           return MenuService.getMenuItems($stateParams.category);
         }]
       }
-    });
+    })
 }
 })();

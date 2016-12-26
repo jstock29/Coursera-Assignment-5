@@ -1,39 +1,41 @@
 (function () {
-    "use strict";
+  "use strict";
 
-    angular.module('public')
-        .controller('SignupController', SignupController);
+  angular.module('public')
+  .controller('SignupController', SignupController);
 
-    SignupController.$inject = ['$http'];
-    function SignupController($http) {
-        var $ctrl = this;
+  SignupController.$inject = ['$scope','MenuService','UserService'];
+  function SignupController($scope,MenuService, UserService) {
+    var $ctrl = this;
 
-        $ctrl.user = {
-            first: 'Jared',
-            last: 'Stock',
-            email: 'jstock529@gmail.com',
-            phone: '303-995-1049',
-            fav: 'L1'
-        };
+    $ctrl.user = {
+      first: 'Testy',
+      last: 'McTestface',
+      email: 'test@gmail.com',
+      phone: '123-456-7890',
+      fav: 'DK1'
+    };
+
+    $ctrl.error='';
+    $ctrl.message='';
+
+    $ctrl.submit = function() {
+      var shortName = $ctrl.user.fav ? $ctrl.user.fav.toUpperCase() : '';
+      MenuService.getMenuItemsByShortName(shortName).then(function (response) {
+        UserService.store($ctrl.user);
+        $ctrl.saved = true;
+        $ctrl.user = {};
         $ctrl.error='';
+        $ctrl.message='Your information has been saved';
+      }).catch(function (response) {
+        $ctrl.error='Invalid menu number';
         $ctrl.message='';
-
-        $ctrl.submit = function () {
-            var response = $http.get('https://jstock29-restaurant-server.herokuapp.com/menu_items/'+$ctrl.user.fav+'.json');
-            response.success(function(data, status, headers, config) {
-                console.log(response.$$state.value.data);
-                console.log(response.$$state.value.data.short_name);
-                $ctrl.message='Your information has been saved!'
-                $ctrl.error='';
-            });
-            response.error(function(data, status, headers, config) {
-                console.log('error');
-                $ctrl.error='No such menu number exists.'
-                $ctrl.message=''
-
-            });
-
+        if ($ctrl.saved) {
+          $ctrl.saved = false;
+          $ctrl.error='';
+          $ctrl.message='Your information has been saved';
         }
+      })
     }
-
+  }
 })();

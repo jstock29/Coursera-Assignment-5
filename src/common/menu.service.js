@@ -23,5 +23,18 @@ function MenuService($http, ApiPath2) {
       return response.data;
     });
   };
+
+  service.getMenuItemsByShortName = function(shortName) {
+  return $http.get(ApiPath2 + '/menu_items.json').then(function (response) {
+    var found = false;
+    for(var i = 0; i < response.data.menu_items.length; i++) {
+        if (response.data.menu_items[i].short_name == shortName) {
+            found = true;
+            break;
+        }
+    }
+    return response.data.menu_items[i];
+  });
+}
 }
 })();

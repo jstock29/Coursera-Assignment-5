@@ -1,14 +1,16 @@
 <div class="container">
     <h2 id="" class="text-center">Info</h2>
+    <div ng-if="infoCtrl.notSignedUp">
     <p>Not registered yet! <a ui-sref="public.signup">Sign up now!</a></p>
-    <div id="info">
+  </div>
+    <div id="info" ng-hide="infoCtrl.notSignedUp">
         First: {{ infoCtrl.user.first}} <br>
         First: {{ infoCtrl.user.last}} <br>
         Email: {{ infoCtrl.user.email}} <br>
         Phone: {{ infoCtrl.user.phone }} <br>
-        Favorite Dish: {{ infoCtrl.user.fav}}<br>
-        Name: {{infoCtrl.dish.name}} <br>
+        <br>
+        Favorite Dish: {{infoCtrl.dish.name}} <br>
         Description: {{infoCtrl.dish.description}} <br>
-        <!-- Picture: {{infoCtrl.dish.image}} <br> -->
+        <img class="img-responsive" width="250" height="250" ng-src="{{infoCtrl.basePath}}/images/{{infoCtrl.user.fav}}.jpg" alt="{{infoCtrl.dish.name}}">
     </div>
 </div>
