@@ -30,10 +30,15 @@ function MenuService($http, ApiPath2) {
     for(var i = 0; i < response.data.menu_items.length; i++) {
         if (response.data.menu_items[i].short_name == shortName) {
             found = true;
+            console.log('found');
+            return response.data.menu_items[i];
             break;
         }
     }
-    return response.data.menu_items[i];
+    console.log('get response is ')
+    console.log(response);
+    return error;
+
   });
 }
 }

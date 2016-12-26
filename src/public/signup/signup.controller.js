@@ -22,6 +22,7 @@
     $ctrl.submit = function() {
       var shortName = $ctrl.user.fav ? $ctrl.user.fav.toUpperCase() : '';
       MenuService.getMenuItemsByShortName(shortName).then(function (response) {
+        console.log(response);
         UserService.store($ctrl.user);
         $ctrl.saved = true;
         $ctrl.user = {};
@@ -30,11 +31,11 @@
       }).catch(function (response) {
         $ctrl.error='Invalid menu number';
         $ctrl.message='';
-        if ($ctrl.saved) {
-          $ctrl.saved = false;
-          $ctrl.error='';
-          $ctrl.message='Your information has been saved';
-        }
+        // if ($ctrl.saved) {
+        //   $ctrl.saved = false;
+        //   $ctrl.error='';
+        //   $ctrl.message='';
+        // }
       })
     }
   }
